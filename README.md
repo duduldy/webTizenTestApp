@@ -34,5 +34,5 @@
         * [응용 블로그](https://conkjh032.tistory.com/7)
       + 
     - 기타
-      + 
+      + 추후 사용
       + 
