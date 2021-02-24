@@ -11,6 +11,7 @@
   * 웹앱
     - [웹앱 참고 블로그](https://blog.naver.com/PostView.nhn?blogId=ndb796&logNo=221402597656&redirect=Dlog&widgetTypeCall=true&directAccess=false)
     - [ERR_CLEARTEXT_NOT_PERMITTED](https://nobase-dev.tistory.com/81)
+    - [웹에서 안드로이드 호출](https://coolsharp.github.io/android/android_webview/)
   * 타이젠
     - 타이젠 공식
       + [타이젠 튜토리얼](https://docs.tizen.org/application/native/)
