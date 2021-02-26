@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 		webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);  // SINGLE_COLUMN : API 12 지원 중지
 
 		// Javascript 사용하기
-		webSettings.setJavaScriptEnabled(true);// xxs 취약성 발생 가능성
+		webSettings.setJavaScriptEnabled(true);// xss 취약성 발생 가능성
 		// WebView 내장 줌 사용여부
 		webSettings.setBuiltInZoomControls(false);
 		// 줌 컨트롤 사용 여부
