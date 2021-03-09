@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 		/* 웹 뷰 띄우기 */
 		webView.loadUrl("https://naver.com/"); //접속할 URL - res/xml/network_security_config.xml에 정의 필요
-		//webView.loadUrl("http://1.1.1.1:8080/"); 로컬호스트일 경우
+		//webView.loadUrl("http://1.1.1.1:8080/"); //로컬호스트일 경우
 	}
 
 
