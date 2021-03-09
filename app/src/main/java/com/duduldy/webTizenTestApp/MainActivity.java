@@ -10,27 +10,73 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-	private WebView webView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		InitializeView(); // 초기화
+		Initialize(); // 초기화
 		setWebView(); // 웹뷰
+		getMobileSensorData(); // 모바일 데이터 얻기
+		getWatchSensorData(); // 와치 데이터 얻기
 
 	}
 
+	// 웹뷰
+	private WebView webView;
+	// 모바일 센서
+	private TextView mobile_gyro_x;
+	private TextView mobile_gyro_y;
+	private TextView mobile_gyro_z;
+	private TextView mobile_acc_x;
+	private TextView mobile_acc_y;
+	private TextView mobile_acc_z;
+	// 와치 센서
+	private TextView watch_gyro_x;
+	private TextView watch_gyro_y;
+	private TextView watch_gyro_z;
+	private TextView watch_acc_x;
+	private TextView watch_acc_y;
+	private TextView watch_acc_z;
 	/**
 	 *  초기화
 	 */
-	public void InitializeView(){
+	public void Initialize(){
 		//웹뷰
 		webView = (WebView) findViewById(R.id.mainWeb);
+
+		// 모바일 센서
+		mobile_gyro_x = (TextView) findViewById(R.id.mobile_gyro_x);
+		mobile_gyro_y = (TextView) findViewById(R.id.mobile_gyro_y);
+		mobile_gyro_z = (TextView) findViewById(R.id.mobile_gyro_z);
+		mobile_acc_x  = (TextView) findViewById(R.id.mobile_acc_x);
+		mobile_acc_y  = (TextView) findViewById(R.id.mobile_acc_y);
+		mobile_acc_z  = (TextView) findViewById(R.id.mobile_acc_z);
+		mobile_gyro_x.setText("X:0");
+		mobile_gyro_y.setText("Y:0");
+		mobile_gyro_z.setText("Z:0");
+		mobile_acc_x.setText("X:0.0000000000000000001");
+		mobile_acc_y.setText("Y:0.0000000000000000001");
+		mobile_acc_z.setText("Z:0.0000000000000000001");
+		// 와치 센서
+		watch_gyro_x = (TextView) findViewById(R.id.watch_gyro_x);
+		watch_gyro_y = (TextView) findViewById(R.id.watch_gyro_y);
+		watch_gyro_z = (TextView) findViewById(R.id.watch_gyro_z);
+		watch_acc_x  = (TextView) findViewById(R.id.watch_acc_x);
+		watch_acc_y  = (TextView) findViewById(R.id.watch_acc_y);
+		watch_acc_z  = (TextView) findViewById(R.id.watch_acc_z);
+		watch_gyro_x.setText("X:0");
+		watch_gyro_y.setText("Y:0");
+		watch_gyro_z.setText("Z:0");
+		watch_acc_x.setText("X:0.0000000000000000001");
+		watch_acc_y.setText("Y:0.0000000000000000001");
+		watch_acc_z.setText("Z:0.0000000000000000001");
+
 	}
 
 	/**
@@ -124,6 +170,21 @@ public class MainActivity extends AppCompatActivity {
 		} else {
 			findViewById(R.id.webCallBtn).setVisibility(View.GONE);
 		}
+	}
+
+	/**
+	 *  모바일 센서 데이터 얻기
+	 */
+	private void getMobileSensorData() {
+
+	}
+	/**
+	 *  와치 센서 데이터 얻기
+	 *  메소드 명을 get으로 했지만 추후 catch로 바뀔 수 있음
+	 *  (와치에서 낙상의 경우에만 데이터를 보낼 듯)
+	 */
+	private void getWatchSensorData() {
+
 	}
 
 
