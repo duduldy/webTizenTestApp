@@ -1,5 +1,6 @@
 # webTizenTestApp
 웹앱 + 타이젠  데이터 받기 테스트 프로젝트
+[andTizenTestApp](https://github.com/duduldy/andTizenTestApp) (서브 프로젝트 - 타이젠 소스)
 
 # Link
 
