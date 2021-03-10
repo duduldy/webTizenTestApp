@@ -13,6 +13,9 @@
     - [웹앱 참고 블로그](https://blog.naver.com/PostView.nhn?blogId=ndb796&logNo=221402597656&redirect=Dlog&widgetTypeCall=true&directAccess=false)
     - [ERR_CLEARTEXT_NOT_PERMITTED](https://nobase-dev.tistory.com/81)
     - [웹에서 안드로이드 호출](https://coolsharp.github.io/android/android_webview/)
+  * 안드로이드
+    - [안드로이드 넘어짐감지 블로그](https://seongjaemoon.github.io/android/2018/04/19/ajmFallDetection.html) 자이로스코프 센서, 가속도계 센서 필요
+      + [응용 블로그](https://conkjh032.tistory.com/7)
   * 타이젠
     - 타이젠 공식
       + [타이젠 튜토리얼](https://docs.tizen.org/application/native/)

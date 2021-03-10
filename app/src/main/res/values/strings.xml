@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">webTizenTestApp</string>
+    <string name="start_service_safe">낙상 감지기능 시작</string>
+    <string name="start_service_safe_end">낙상 감지기능 종료</string>
+    <string name="be_careful">조심하세요!</string>
+    <string name="not_supprot_acc">가속도 센서가 없습니다.</string>
 </resources>

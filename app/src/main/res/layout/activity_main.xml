@@ -17,104 +17,147 @@
         android:padding="10dp"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:gravity="bottom"
         app:layout_constraintBottom_toTopOf="@+id/webCallBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:background="#7487ff">
-            <TextView
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/mobile_fall_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="모바일 자이로스코프"/>
-            <TextView
-                android:id="@+id/mobile_gyro_x"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:id="@+id/mobile_gyro_y"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:id="@+id/mobile_gyro_z"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="모바일 가속도" />
-            <TextView
-                android:id="@+id/mobile_acc_x"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:id="@+id/mobile_acc_y"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:id="@+id/mobile_acc_z"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
+                android:text="모바일 낙상 정지/시작"
+                />
+
+            <LinearLayout
+                android:id="@+id/mobile_fall"
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:background="#E66F6F"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="넘어졌습니다!" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mobile_not_fall"
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:background="#7487ff">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="모바일 자이로스코프"/>
+                <TextView
+                    android:id="@+id/mobile_gyro_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_gyro_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_gyro_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_gyro_z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="모바일 가속도" />
+                <TextView
+                    android:id="@+id/mobile_acc_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_acc_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_acc_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/mobile_acc_z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="215dp"
             android:padding="10dp"
             android:layout_weight="1"
             android:background="#C1946D"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="워치 자이로스코프" />
-
+            <TextView
+                android:id="@+id/watch_gyro_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
             <TextView
                 android:id="@+id/watch_gyro_x"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
             <TextView
                 android:id="@+id/watch_gyro_y"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
             <TextView
                 android:id="@+id/watch_gyro_z"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="워치 가속도" />
-
+            <TextView
+                android:id="@+id/watch_acc_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""/>
             <TextView
                 android:id="@+id/watch_acc_x"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
             <TextView
                 android:id="@+id/watch_acc_y"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
             <TextView
                 android:id="@+id/watch_acc_z"
                 android:layout_width="wrap_content"
@@ -122,6 +165,7 @@
                 android:text=""/>
         </LinearLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/webCallBtn"
         android:layout_width="wrap_content"
