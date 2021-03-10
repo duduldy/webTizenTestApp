@@ -1,7 +1,7 @@
 # webTizenTestApp
 웹앱 + 타이젠  데이터 받기 테스트 프로젝트</br>
-[서브 프로젝트 - 타이젠 소스 (andTizenTestApp)](https://github.com/duduldy/andTizenTestApp)</br>
-[서브 프로젝트 - 웹 소스 (tizenWeb)](https://github.com/duduldy/tizenWeb)
+[서브 프로젝트 - 타이젠 (andTizenTestApp)](https://github.com/duduldy/andTizenTestApp)</br>
+[서브 프로젝트 - 웹 (tizenWeb)](https://github.com/duduldy/tizenWeb)
 
 # Link
 
