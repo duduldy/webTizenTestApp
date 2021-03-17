@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
 		callJSAndToWeb();
 
 		/* 웹 뷰 띄우기 */
-		webView.loadUrl("https://naver.com/"); //접속할 URL - res/xml/network_security_config.xml에 정의 필요
-		//webView.loadUrl("http://1.1.1.1:8080/"); //로컬호스트일 경우
+		//webView.loadUrl("https://naver.com/"); //접속할 URL - res/xml/network_security_config.xml에 정의 필요
+		webView.loadUrl("http://1.1.1.1:8080/"); //로컬호스트일 경우
 	}
 
 	/**
@@ -267,19 +267,20 @@ public class MainActivity extends AppCompatActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String mobile_data_type = intent.getStringExtra("mobile_data_type");
-			String mobile_time = intent.getStringExtra("mobile_time");
+			String mobile_time_stamp = intent.getStringExtra("mobile_time_stamp");
+			String mobile_time_date = intent.getStringExtra("mobile_time_date");
 			String mobile_x = intent.getStringExtra("mobile_x");
 			String mobile_y = intent.getStringExtra("mobile_y");
 			String mobile_z = intent.getStringExtra("mobile_z");
-			if(DEBUGLOG) Log.d("MainActivity", "mBroadcastReceiver() get data - "+mobile_data_type+" - "+mobile_time+" - "+mobile_x+"/"+mobile_y+"/"+mobile_z);
+			if(DEBUGLOG) Log.d("MainActivity", "mBroadcastReceiver() get data - "+mobile_data_type+" - "+mobile_time_stamp+" - "+mobile_time_date+" - "+mobile_x+"/"+mobile_y+"/"+mobile_z);
 
 			if("gyro".equals(mobile_data_type)){
-				mobile_gyro_time.setText("Time:"+mobile_time);
+				mobile_gyro_time.setText("Time:"+mobile_time_date);
 				mobile_gyro_x.setText("X:"+mobile_x);
 				mobile_gyro_y.setText("Y:"+mobile_y);
 				mobile_gyro_z.setText("Z:"+mobile_z);
 			} else if("acc".equals(mobile_data_type)){
-				mobile_acc_time.setText("Time:"+mobile_time);
+				mobile_acc_time.setText("Time:"+mobile_time_date);
 				mobile_acc_x.setText("X:"+mobile_x);
 				mobile_acc_y.setText("Y:"+mobile_y);
 				mobile_acc_z.setText("Z:"+mobile_z);

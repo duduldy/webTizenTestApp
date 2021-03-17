@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -106,8 +108,8 @@ public class SensorService extends Service implements SensorEventListener {
 		//간혹 낮은 버전의 안드로이드 기종은 가속도계 센서가 사용 불가한 경우가 있으니, 확인 작업을 한다.
 		if(senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null) {
 			initListeners();
-			//타이머 시작.
-			fuseTimer.scheduleAtFixedRate(new calculateFusedOrientationTask(), 1000, TIME_CONSTANT);
+			//타이머 시작. 1000 = 1s
+			fuseTimer.scheduleAtFixedRate(new calculateFusedOrientationTask(), 1, TIME_CONSTANT);
 		}else {
 			Toast.makeText(getApplicationContext(), getString(R.string.not_supprot_acc), Toast.LENGTH_SHORT).show();
 		}
@@ -383,7 +385,12 @@ public class SensorService extends Service implements SensorEventListener {
 		//float[] values, float timestamp
 		Intent intent = new Intent("mobile_data");
 		intent.putExtra("mobile_data_type", dataType);
-		intent.putExtra("mobile_time", ""+event.timestamp);
+		intent.putExtra("mobile_time_stamp", ""+event.timestamp);
+		long timeInMillis = (new Date()).getTime()
+				+ (event.timestamp - System.nanoTime()) / 1000000L;
+		Date df = new java.util.Date(timeInMillis);
+		String dateTime = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss.SSS").format(df);
+		intent.putExtra("mobile_time_date", ""+dateTime);
 		intent.putExtra("mobile_x", ""+event.values[0]);
 		intent.putExtra("mobile_y", ""+event.values[1]);
 		intent.putExtra("mobile_z", ""+event.values[2]);
