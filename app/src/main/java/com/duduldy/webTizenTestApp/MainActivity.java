@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -21,6 +23,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
 	@Override
@@ -29,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		Initialize(); // 초기화
-		setWebView(); // 웹뷰
-		setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
-		srtMobileSensorService(); // 모바일 센서 서비스 시작
-		getWatchSensorData(); // 와치 데이터 얻기
+		//setWebView(); // 웹뷰
+		//setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
+		//srtMobileSensorService(); // 모바일 센서 서비스 시작
+		//getWatchSensorData(); // 와치 데이터 얻기
 
 	}
 
@@ -285,6 +299,11 @@ public class MainActivity extends AppCompatActivity {
 				mobile_acc_y.setText("Y:"+mobile_y);
 				mobile_acc_z.setText("Z:"+mobile_z);
 			}
+			// 로그
+			// 센서 : g - 자이로, a - 가속도
+			// 레코드 설명 : 센서,시간,x,y,z
+			/*String logStr = mobile_data_type.charAt(0)+","+mobile_time_date+","+mobile_x+","+mobile_y+","+mobile_z;
+			setSensorAndLog(logStr);*/
 		}
 	};
 
@@ -320,14 +339,16 @@ public class MainActivity extends AppCompatActivity {
 			mobile_fall_btn_state = false;
 			mobile_fall.setVisibility(View.VISIBLE);
 			mobile_not_fall.setVisibility(View.GONE);
-			endMobileSensorService(); // 모바일 센서 서비스 종료
+			//endMobileSensorService(); // 모바일 센서 서비스 종료
 		} else { // false:안넘어짐
 			mobile_fall_btn_state = true;
 			mobile_fall.setVisibility(View.GONE);
 			mobile_not_fall.setVisibility(View.VISIBLE);
-			setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
-			srtMobileSensorService(); // 모바일 센서 서비스 시작
+			//setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
+			//srtMobileSensorService(); // 모바일 센서 서비스 시작
 		}
+		// 데이터 저장 테스트
+		setSensorAndLog("테스트 텍스트");
 	}
 
 	/**
@@ -349,9 +370,191 @@ public class MainActivity extends AppCompatActivity {
 
 	}
 
-	public void onBackPressed() {
-		if(DEBUGLOG) Log.d("MainActivity", "onBackPressed()");
-		if(webView.canGoBack()) webView.goBack();
-		else finish();
+	/**
+	 *  안드로이드 센서 데이터 로그 저장
+	 */
+	private void setSensorAndLog(String logStr) {
+		if(DEBUGLOG) Log.d("MainActivity", "setSensorAndLog()");
+
+		/////////////////////// 내부저장소 설정 ///////////////////////
+		// /data/user/0/[앱 패키지 명(com.sample.test)]/files/
+		////// 디렉토리 설정
+		String dirPath = getFilesDir() +"/";
+
+		////// 파일 이름 설정
+		// WTTApp_sensor_and_ + 현재날짜
+		String TimeStamp = new SimpleDateFormat("yyMMdd").format(new Date());
+		String FileName = "WTTApp_sensor_and_"+TimeStamp;
+		String filePath = dirPath + FileName;
+
+		////// 파일 삭제 설정
+		// 7일 지난 파일
+		int delFlagDay = 7;
+		// 남은 용량 체크 파일 삭제 KB, MB, GB
+		String delFlagFmt = "GB"; // 파일삭제 기준 용량 단위
+		int delFlagOver = 1; // 파일삭제 기준 용량
+
+		/////////////////////// 내부저장소 폴더 검색 ///////////////////////
+		ArrayList fileList = searchItnDir(dirPath);
+
+		/////////////////////// 내부저장소 파일 삭제 ///////////////////////
+		// 기준 : 7일 지난 파일 or 특정 용량 차면 마지막 파일 삭제
+
+		// 7일
+		deleteItnFile(fileList, delFlagDay);
+
+		// 용량
+		// 사용가능 용량
+		Long memory = getAvlIFSize();
+		if (DEBUGLOG) Log.d("MainActivity", "memory : " + memory);
+
+		if (memory >= 1024) { // KB
+			if("KB".equals(delFlagFmt) && memory <= delFlagOver) deleteItnFile(fileList, fileList.size() - 1);
+			if (memory >= 1024 / 1024) { // MB
+				if("MB".equals(delFlagFmt) && memory <= delFlagOver) deleteItnFile(fileList, fileList.size() - 1);
+				if (memory >= 1024 / 1024 / 1024) { // GB
+					if("GB".equals(delFlagFmt) && memory <= delFlagOver) deleteItnFile(fileList, fileList.size() - 1);
+				}
+			}
+		}
+
+		//if (DEBUGLOG) Log.d("MainActivity", "getSize : " + getSizeStr);
+
+		/////////////////////// 내부저장소 파일 쓰기 ///////////////////////
+		writeItnFile(filePath, logStr);
+
+		/////////////////////// 내부저장소 파일 읽기 ///////////////////////
+		// 파일 쓸때는 끝에 추가 가능하지만 읽을때는 한줄씩
+		readItnFile(filePath);
+
+	}
+
+	/**
+	 * 내부 저장소(internal File) 파일 목록 검색
+	 * @param dirPath
+	 * @return fileList
+	 */
+	private ArrayList searchItnDir(String dirPath) {
+		if(DEBUGLOG) Log.d("MainActivity", "writeItnFile()");
+		File directory = new File(dirPath);
+
+		File[] files = directory.listFiles();
+		ArrayList fileList = new ArrayList();
+		for (File file : files) {
+			if (file.isFile()) {
+				String str = (file+"").replaceAll(dirPath, "");
+				fileList.add(str);
+			} else if (file.isDirectory()) {
+				//addFileToList(file);
+			}
+		}
+
+		Collections.sort(fileList);
+
+		if(DEBUGLOG) Log.d("MainActivity", "dirPath : "+dirPath);
+		if(DEBUGLOG) Log.d("MainActivity", "listFile : "+fileList.toString());
+		if(DEBUGLOG) Log.d("MainActivity", "listFile.size : "+fileList.size());
+
+		return fileList;
+	}
+
+	/**
+	 * 내부 저장소(internal File) 파일 목록 검색
+	 * @param fileName
+	 */
+	private void deleteItnFile(ArrayList  fileList, int delFlagDay) {
+		if(DEBUGLOG) Log.d("MainActivity", "deleteItnFile()");
+
+
+		int listSize = fileList.size() - 1;
+		for (int i = 0; i <= listSize - delFlagDay; i++) {
+			//if (DEBUGLOG) Log.d("MainActivity", "fileList.get(" + i + ") : " + fileList.get(i));
+			if(deleteFile(fileList.get(i).toString())) {
+				if(DEBUGLOG) Log.d("MainActivity", "파일("+fileList.get(i).toString()+") 삭제 - 성공");
+			} else {
+				if(DEBUGLOG) Log.d("MainActivity", "파일("+fileList.get(i).toString()+") 삭제 - 실패");
+			}
+		}
+
+
+	}
+
+	/**
+	 * 내부 저장소(internal File) 총 용량
+	 * @return fmtMemSize()
+	 */
+	public Long getIFSize() {
+		if(DEBUGLOG) Log.d("MainActivity", "getIFSize()");
+		File path = Environment.getDataDirectory();
+		StatFs stat = new StatFs(path.getPath());
+		long blockSize = 0;
+		long totalBlocks = 0;
+		if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			blockSize = stat.getBlockSizeLong();
+			totalBlocks = stat.getBlockCountLong();
+		} else {
+			blockSize = stat.getBlockSize();
+			totalBlocks = stat.getBlockCount();
+		}
+		return  totalBlocks * blockSize;
+	}
+
+	/**
+	 * 내부 저장소(internal File) 사용가능 용량
+	 * @return availableBlocks * blockSize
+	 */
+	public Long getAvlIFSize() {
+		File path = Environment.getDataDirectory();
+		StatFs stat = new StatFs(path.getPath());
+		long blockSize = 0;
+		long availableBlocks = 0;
+		if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			blockSize = stat.getBlockSizeLong();
+			availableBlocks = stat.getAvailableBlocksLong();
+		} else {
+			blockSize = stat.getBlockSize();
+			availableBlocks = stat.getAvailableBlocks();
+		}
+
+		return availableBlocks * blockSize;
+	}
+
+	/**
+	 * 내부 저장소(internal File) 파일 쓰기
+	 * @param filePath
+	 * @param writeTxt
+	 */
+	private void writeItnFile(String filePath, String writeTxt) {
+		if(DEBUGLOG) Log.d("MainActivity", "writeItnFile()");
+		try{
+			// append : true - 이어쓰기, false - 덮어쓰기
+			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true));
+			bw.write(writeTxt+"\n");
+			bw.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 내부 저장소(internal File) 파일 읽기
+	 * @param filePath
+	 */
+	private void readItnFile(String filePath) {
+		if(DEBUGLOG) Log.d("MainActivity", "readItnFile()");
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(filePath));
+			String readStr = "";
+			String str = null;
+			while(((str = br.readLine()) != null)){
+				readStr += str +"\n";
+			}
+			br.close();
+			if(DEBUGLOG) Log.d("MainActivity", "read file:"+readStr.substring(0, readStr.length()-1));
+		}catch (FileNotFoundException e){
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
