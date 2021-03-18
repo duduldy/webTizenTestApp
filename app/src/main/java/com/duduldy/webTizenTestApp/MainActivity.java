@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		Initialize(); // 초기화
-		//setWebView(); // 웹뷰
-		//setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
-		//srtMobileSensorService(); // 모바일 센서 서비스 시작
-		//getWatchSensorData(); // 와치 데이터 얻기
+		setWebView(); // 웹뷰
+		setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
+		srtMobileSensorService(); // 모바일 센서 서비스 시작
+		getWatchSensorData(); // 와치 데이터 얻기
 
 	}
 
@@ -302,8 +302,8 @@ public class MainActivity extends AppCompatActivity {
 			// 로그
 			// 센서 : g - 자이로, a - 가속도
 			// 레코드 설명 : 센서,시간,x,y,z
-			/*String logStr = mobile_data_type.charAt(0)+","+mobile_time_date+","+mobile_x+","+mobile_y+","+mobile_z;
-			setSensorAndLog(logStr);*/
+			String logStr = mobile_data_type.charAt(0)+","+mobile_time_date+","+mobile_x+","+mobile_y+","+mobile_z;
+			setSensorAndLog(logStr);
 		}
 	};
 
@@ -339,16 +339,16 @@ public class MainActivity extends AppCompatActivity {
 			mobile_fall_btn_state = false;
 			mobile_fall.setVisibility(View.VISIBLE);
 			mobile_not_fall.setVisibility(View.GONE);
-			//endMobileSensorService(); // 모바일 센서 서비스 종료
+			endMobileSensorService(); // 모바일 센서 서비스 종료
 		} else { // false:안넘어짐
 			mobile_fall_btn_state = true;
 			mobile_fall.setVisibility(View.GONE);
 			mobile_not_fall.setVisibility(View.VISIBLE);
-			//setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
-			//srtMobileSensorService(); // 모바일 센서 서비스 시작
+			setMobileSensorServiceReceiver(); // 모바일 센서 서비스 Receiver 설정
+			srtMobileSensorService(); // 모바일 센서 서비스 시작
 		}
 		// 데이터 저장 테스트
-		setSensorAndLog("테스트 텍스트");
+		//setSensorAndLog("테스트 텍스트");
 	}
 
 	/**
@@ -392,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
 		int delFlagDay = 7;
 		// 남은 용량 체크 파일 삭제 KB, MB, GB
 		String delFlagFmt = "GB"; // 파일삭제 기준 용량 단위
-		int delFlagOver = 1; // 파일삭제 기준 용량
+		Long delFlagOver = 1L; // 파일삭제 기준 용량
 
 		/////////////////////// 내부저장소 폴더 검색 ///////////////////////
 		ArrayList fileList = searchItnDir(dirPath);
