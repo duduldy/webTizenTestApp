@@ -37,7 +37,21 @@
         * [원격 앱 시작 (워치 -> 안드로이드)}(https://developer.samsung.com/tizen/Galaxy-Watch/guides/remote-app-control.html)
         * [파일전송 샘플 앱](https://developer.samsung.com/galaxy-watch-develop/samples/companion/file-web.html)
         * [메세지 샘플 앱](https://developer.samsung.com/galaxy-watch-develop/samples/companion/hello-message-web.html)
-    - 타이젠 응용 
+        * [W4C web socket(서버전송)](https://developer.tizen.org/ko/development/articles/web-sockets)
+          - [WebSocket Docs](https://developer.mozilla.org/ko/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
+          - [WebSocket Tizen Docs](https://docs.tizen.org/application/web/guides/w3c/communication/websocket/)
+          - [WebSocket Tizen Dev](https://developer.tizen.org/ko/development/guides/web-application/w3chtml5supplementary-features/communication/websocket)
+          - [WebSocket JavaScript](https://ko.javascript.info/websocket)
+    - 타이젠 응용
+      + 실제 워치에 테스트 앱 실행
+        * [앱 설치 방법](https://developer.samsung.com/galaxy-watch-develop/testing-your-app-on-galaxy-watch.html)
+          - cd C:\tizen-studio\tools
+          - sdb devices
+          - sdb connect [Galaxy Watch IP address]:26101
+          - 타이젠 스튜디오에서 .wgt 파일 생성 (네이티브는 .tpk 파일, 웹은 .wgt 파일)
+            + Project > Build Automatically
+            + Project > Build Signedpackage (이 단계에서 wgt 파일 생성)
+          - sdb install [path_to_tpk or path_to_wgt]
       + [전용앱 갤럭시 앱스토어 등록](https://news.samsung.com/kr/%EC%86%90%EC%88%98-%EB%A7%8C%EB%93%A0-%EA%B8%B0%EC%96%B4-s3%EC%9A%A9-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EA%B0%A4%EB%9F%AD%EC%8B%9C-%EC%95%B1%EC%8A%A4%EC%97%90-%EC%98%AC%EB%A6%AC)
       + [삼성 헬스 API](https://developer.samsung.com/health/android/overview.html)
       + [삼성 헬스 Class](https://img-developer.samsung.com/onlinedocs/health/android/data/com/samsung/android/sdk/healthdata/HealthConstants.html)
@@ -48,6 +62,7 @@
         * [실습](https://jaehoonx2.tistory.com/53?category=840350)
         * [테스트](https://jaehoonx2.tistory.com/54)
       + [2014년 안드로이드 타이젠 기어2 연동](https://lovesm135.tistory.com/category/%ED%83%80%EC%9D%B4%EC%A0%A0)
+      + [안드로이드 + 타이젠 앱 두개 연동](https://lovesm135.tistory.com/entry/%EC%95%88%EB%93%9C-%ED%8F%B0-%ED%83%80%EC%9D%B4%EC%A0%A0-%EA%B8%B0%EC%96%B42-%EC%96%B4%ED%94%8C-%EC%A0%84%EC%86%A1-%EB%B0%A9%EB%B2%95)
       + 
     - 낙상 기능
       + [안드로이드 넘어짐 감지](https://seongjaemoon.github.io/android/2018/04/19/ajmFallDetection.html) - 자이로스코프 센서, 가속도계 센서 필요
