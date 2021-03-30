@@ -17,6 +17,10 @@
   * 안드로이드
     - [안드로이드 넘어짐감지 블로그](https://seongjaemoon.github.io/android/2018/04/19/ajmFallDetection.html) 자이로스코프 센서, 가속도계 센서 필요
       + [응용 블로그](https://conkjh032.tistory.com/7)
+    - 기어2 센서데이터 안드로이드로 블루투스 통신 
+      + [블로그 1 - 환경설정](https://lovesm135.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%ED%8F%B0%EA%B3%BC-%ED%83%80%EC%9D%B4%EC%A0%A0-%EA%B8%B0%EC%96%B42-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EC%84%A4%EC%A0%95-%EC%B2%AB%EB%B2%88%EC%A7%B8?category=92913)
+      + [블로그 2 - 블루투스 샘플 코드](https://lovesm135.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%ED%8F%B0%EA%B3%BC-%ED%83%80%EC%9D%B4%EC%A0%A0-%EA%B8%B0%EC%96%B42-%EB%B8%94%EB%A3%A8%ED%88%AC%EC%8A%A4-%EC%83%98%ED%94%8C%EC%BD%94%EB%93%9C-%EC%8B%A4%ED%96%89)
+      + [블로그 3 - 센서 전송](https://lovesm135.tistory.com/entry/%EB%B8%94%EB%A3%A8%ED%88%AC%EC%8A%A4%EB%A1%9C-%EA%B8%B0%EC%96%B42%EC%9D%98-%EA%B0%80%EC%86%8D%EB%8F%84-%EC%9E%90%EC%9D%B4%EB%A1%9C-%EC%84%BC%EC%84%9C%EA%B0%92%EC%9D%84-%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0%EC%97%90-%EC%A0%84%EC%86%A1?category=92913)
   * 타이젠
     - 타이젠 공식
       + [타이젠 튜토리얼](https://docs.tizen.org/application/native/)
